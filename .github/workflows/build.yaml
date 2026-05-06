@@ -1,0 +1,31 @@
+name: Build All Services
+
+on:
+push:
+branches: [ "main" ]
+pull_request:
+
+jobs:
+build:
+runs-on: ubuntu-latest
+
+```
+steps:
+  - name: Checkout Code
+    uses: actions/checkout@v4
+
+  - name: Setup Java
+    uses: actions/setup-java@v4
+    with:
+      distribution: 'temurin'
+      java-version: '21'
+
+  - name: Build Shared Modules First
+    run: mvn -pl shared/common-events -am clean install
+
+  - name: Build All Services
+    run: mvn clean install -DskipTests
+
+  - name: Run Tests
+    run: mvn test
+```
