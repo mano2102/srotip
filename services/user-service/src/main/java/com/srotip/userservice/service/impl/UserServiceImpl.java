@@ -1,8 +1,10 @@
 package com.srotip.userservice.service.impl;
 
+import com.srotip.userservice.UserServiceApplication;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.srotip.userservice.dto.UserRequestDTO;
@@ -17,12 +19,15 @@ import com.srotip.userservice.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final UserServiceApplication userServiceApplication;
     private final UserRepo userRepo;
     private final UserEventProducer producer;
 
-    public UserServiceImpl(UserRepo userRepo, UserEventProducer producer) {
+    public UserServiceImpl(UserRepo userRepo, UserEventProducer producer,
+            UserServiceApplication userServiceApplication) {
         this.userRepo = userRepo;
         this.producer = producer;
+        this.userServiceApplication = userServiceApplication;
     }
 
     @Override
@@ -31,6 +36,8 @@ public class UserServiceImpl implements UserService {
         u.setName(user.getName());
         u.setEmail(user.getEmail());
         u.setPhone(user.getPhone());
+        u.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        u.setRole(user.getRole());
         UserCreatedEvent event = new UserCreatedEvent(u.getId(), u.getEmail(), u.getName());
         producer.publicUserCreatedEvent(event);
         return mapToDTO(userRepo.save(u));
@@ -75,7 +82,7 @@ public class UserServiceImpl implements UserService {
         dto.setPhone(user.getPhone());
         dto.setEmail(user.getEmail());
         dto.setCreatedAt(user.getCreatedAt());
-
+        dto.setRole(user.getRole());
         return dto;
     }
 

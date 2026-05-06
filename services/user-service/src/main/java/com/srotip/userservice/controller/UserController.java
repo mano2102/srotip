@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.srotip.userservice.constants.ApiEndPoints;
+import com.srotip.userservice.constants.ApiResponseMessage;
 import com.srotip.userservice.dto.ApiResponse;
 import com.srotip.userservice.dto.UserRequestDTO;
 import com.srotip.userservice.dto.UserResponseDTO;
@@ -19,7 +21,7 @@ import com.srotip.userservice.service.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(path = "/api/user")
+@RequestMapping(path = ApiEndPoints.BASE_URL)
 public class UserController {
 
     private final UserService userService;
@@ -30,12 +32,12 @@ public class UserController {
 
     @PostMapping
     public ApiResponse<UserResponseDTO> create(@Valid @RequestBody UserRequestDTO request) {
-        return new ApiResponse<>(true, "User created successfully", userService.createUser(request));
+        return new ApiResponse<>(true, ApiResponseMessage.USER_CREATED_SUCCESSFULLY, userService.createUser(request));
     }
 
     @GetMapping
     public ApiResponse<List<UserResponseDTO>> getAll() {
-        return new ApiResponse<>(true, "Users fetched successfully", userService.getAllUsers());
+        return new ApiResponse<>(true, ApiResponseMessage.USER_FETCHED_SUCCESSFULLY, userService.getAllUsers());
     }
 
     @GetMapping("/{id}")
@@ -46,13 +48,14 @@ public class UserController {
     @PutMapping("/{id}")
     public ApiResponse<UserResponseDTO> update(@PathVariable Long id,
             @Valid @RequestBody UserRequestDTO request) {
-        return new ApiResponse<>(true, "User updated", userService.updateUser(id, request));
+        return new ApiResponse<>(true, ApiResponseMessage.USER_UPDATED_SUCCESSFULLY,
+                userService.updateUser(id, request));
     }
 
     @DeleteMapping("/{id}")
     public ApiResponse<String> delete(@PathVariable Long id) {
         userService.deleteUser(id);
-        return new ApiResponse<>(true, "User deleted", null);
+        return new ApiResponse<>(true, ApiResponseMessage.USER_DELETED_SUCCESSFULLY, null);
     }
 
 }

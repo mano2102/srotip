@@ -2,12 +2,25 @@ package com.srotip.userservice.dto;
 
 import java.time.LocalDateTime;
 
+import com.srotip.userservice.enums.Role;
+
+
+
 public class UserResponseDTO {
     private Long id;
     private String name;
     private String email;
     private String phone;
     private LocalDateTime createdAt;
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
