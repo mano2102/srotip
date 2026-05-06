@@ -1,5 +1,6 @@
 package com.srotip.inventoryservice.service.impl;
 
+import com.srotip.events.ProductCreatedEvent;
 import com.srotip.inventoryservice.constants.ApiMessages;
 import com.srotip.inventoryservice.dto.InventoryResponseDTO;
 import com.srotip.inventoryservice.exception.InsufficientStockException;
@@ -7,6 +8,8 @@ import com.srotip.inventoryservice.exception.InventoryNotFoundException;
 import com.srotip.inventoryservice.model.Inventory;
 import com.srotip.inventoryservice.repository.InventoryRepository;
 import com.srotip.inventoryservice.service.InventoryService;
+
+import java.util.Optional;
 
 import org.apache.kafka.common.protocol.ApiMessage;
 import org.springframework.stereotype.Service;
@@ -39,9 +42,31 @@ public class InventoryServiceImpl implements InventoryService {
         return dto;
     }
 
-    // ================= CREATE =================
     @Override
-    public void createInventory(Long productId, Integer initialStock) {
+    public void createInventory(ProductCreatedEvent event) {
+
+        if (event.getSku() == null) {
+            throw new IllegalArgumentException("SKU cannot be null");
+        }
+        String sku = event.getSku();
+        int initialStock = event.getInitialStock();
+        Long productId = event.getProductId();
+        String brand = event.getBrand();
+        String category = event.getCategory();
+        System.out.println("Initial Quanity:" + event.getInitialStock());
+
+        Optional<Inventory> exists = repository.findBySku(sku);
+
+        if (exists.isPresent()) {
+            System.out.println("⚠️ Inventory already exists for SKU: " + sku);
+            Inventory update = exists.get();
+            update.setAvailableQuantity(update.getAvailableQuantity() + initialStock);
+            update.setBrand(brand);
+            update.setCategory(category);
+            System.out.println(update.getAvailableQuantity() + initialStock);
+            repository.save(update);
+            return; // idempotent behavior
+        }
 
         Inventory inv = new Inventory();
         inv.setProductId(productId);
@@ -49,6 +74,9 @@ public class InventoryServiceImpl implements InventoryService {
         inv.setAvailableQuantity(initialStock);
         inv.setReservedQuantity(0);
         inv.setSoldQuantity(0);
+        inv.setBrand(brand);
+        inv.setCategory(category);
+        inv.setSku(sku);
 
         repository.save(inv);
     }

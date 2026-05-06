@@ -1,15 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- ✅ ADD THIS -->
     <parent>
-        <groupId>com.srotip</groupId>
-        <artifactId>srotip</artifactId>
-        <version>1.0.0</version>
-        <relativePath>../../pom.xml</relativePath>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.14</version>
     </parent>
 
     <groupId>com.srotip</groupId>
     <artifactId>common-events</artifactId>
     <version>1.0.0</version>
+
     <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+    </dependencies>
 </project>

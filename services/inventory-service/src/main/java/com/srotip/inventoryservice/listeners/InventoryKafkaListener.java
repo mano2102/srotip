@@ -1,8 +1,8 @@
 package com.srotip.inventoryservice.listeners;
 
+import com.srotip.events.ProductCreatedEvent;
 import com.srotip.inventoryservice.constants.KafkaMessage;
 import com.srotip.inventoryservice.constants.KafkaTopics;
-import com.srotip.inventoryservice.dto.InventoryCreateEventDTO;
 import com.srotip.inventoryservice.dto.InventoryReduceEventDTO;
 import com.srotip.inventoryservice.service.InventoryService;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -18,13 +18,11 @@ public class InventoryKafkaListener {
     }
 
     @KafkaListener(topics = KafkaTopics.PRODUCT_CREATED_TOPIC, groupId = "inventory-group")
-    public void handleProductCreated(InventoryCreateEventDTO event) {
+    public void handleProductCreated(ProductCreatedEvent event) {
 
         System.out.println(KafkaMessage.RECEVIED_PRODUCT_EVENT + event.getProductId());
 
-        inventoryService.createInventory(
-                event.getProductId(),
-                event.getInitialStock());
+        inventoryService.createInventory(event);
     }
 
     @KafkaListener(topics = KafkaTopics.ORDER_PLACED_TOPIC, groupId = "inventory-group")

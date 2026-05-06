@@ -17,30 +17,27 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+
     consumer:
       group-id: inventory-group
       auto-offset-reset: earliest
-      # Use ErrorHandlingDeserializer to prevent "Poison Pill" infinite loops
+
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
-      
+
       properties:
-        # Delegate the actual JSON work to JsonDeserializer
-        spring.deserializer.value.delegate.class: 
-        
-        # ✅ FIX 1: Trust the incoming package from product-service
-        spring.json.trusted.packages: "com.srotip.inventoryservice.dto,com.srotip.productservice.event"
-        
-        # ✅ FIX 2: Better approach for Microservices - ignore headers and map to local DTOs
-        # This tells Kafka: "I don't care what the sender called the class; 
-        # map it to my local DTO based on the topic it came from."
+        # ✅ CRITICAL FIX
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+
+        # Trust packages (for deserialization)
+        spring.json.trusted.packages: "com.srotip.events"
+
+        # Ignore producer class type
         spring.json.use.type.headers: false
-        
-        # Explicit mapping ensures topic 'product-created-topic' always maps to your local DTO
-        spring.json.type.mapping: >
-          product-created-topic:com.srotip.inventoryservice.dto.InventoryCreateEventDTO,
-          order-placed-topic:com.srotip.inventoryservice.dto.InventoryReduceEventDTO
+
+        # Map topics → local DTOs
+        spring.json.value.default.type: com.srotip.events.ProductCreatedEvent
 
 server:
   port: ${INVENTORY_SERVICE_PORT}
@@ -48,4 +45,4 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8762/eureka/
+      defaultZone: http://localhost:8762/eureka

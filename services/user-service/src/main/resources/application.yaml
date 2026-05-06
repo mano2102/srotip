@@ -24,7 +24,7 @@ spring:
 
 
 server:
-  port: ${USER_SERVICE_PORT}
+  port: ${USER_SERVICE_PORT:8081}
 eureka:
   client:
     service-url:

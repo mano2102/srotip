@@ -33,7 +33,7 @@ public class InventoryController {
             @RequestParam Long productId,
             @RequestParam Integer quantity) {
 
-        service.createInventory(productId, quantity);
+        // service.createInventory(productId, quantity, null);
 
         return ResponseEntity.ok(
                 ApiResponse.success(ApiMessages.INVENTORY_CREATED, null));

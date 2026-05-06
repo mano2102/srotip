@@ -1,0 +1,242 @@
+.
+├── ci-cd
+├── docker
+│   ├── base-images
+│   └── service-dockerfiles
+├── docs
+├── infrastructure
+│   ├── databases
+│   │   ├── postgres
+│   │   └── redis
+│   ├── gateway-config
+│   ├── kafka
+│   │   ├── docker-compose.yml
+│   │   └── topics-config
+│   └── monitoring
+│       ├── elk-stack
+│       ├── grafana
+│       └── prometheus
+├── k8s
+│   ├── autoscaling
+│   ├── configmaps
+│   ├── deployments
+│   ├── ingress
+│   ├── namespaces
+│   ├── secrets
+│   └── services
+├── pom.xml
+├── scripts
+│   ├── env.local.sh
+│   ├── run-local-inventory.sh
+│   ├── run-local-order.sh
+│   ├── run-local-product.sh
+│   ├── run-local-srotip.sh
+│   └── run-local-user.sh
+├── services
+│   ├── apigateway
+│   │   ├── HELP.md
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── apigateway-0.0.1-SNAPSHOT.jar
+│   │       ├── classes
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── maven-archiver
+│   │       ├── maven-status
+│   │       ├── surefire-reports
+│   │       └── test-classes
+│   ├── auth-service
+│   │   ├── HELP.md
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── auth-service-0.0.1-SNAPSHOT.jar
+│   │       ├── classes
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── maven-archiver
+│   │       ├── maven-status
+│   │       ├── surefire-reports
+│   │       └── test-classes
+│   ├── delivery-service
+│   │   ├── HELP.md
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── classes
+│   │       ├── delivery-service-0.0.1-SNAPSHOT.jar
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── maven-archiver
+│   │       ├── maven-status
+│   │       ├── surefire-reports
+│   │       └── test-classes
+│   ├── eureka
+│   │   ├── HELP.md
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── classes
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── maven-status
+│   │       ├── surefire-reports
+│   │       └── test-classes
+│   ├── inventory-service
+│   │   ├── HELP.md
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── classes
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── inventory-service-0.0.1-SNAPSHOT.jar
+│   │       ├── maven-archiver
+│   │       ├── maven-status
+│   │       ├── surefire-reports
+│   │       └── test-classes
+│   ├── notification-service
+│   │   ├── HELP.md
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── classes
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── maven-archiver
+│   │       ├── maven-status
+│   │       ├── notification-service-0.0.1-SNAPSHOT.jar
+│   │       ├── surefire-reports
+│   │       └── test-classes
+│   ├── order-service
+│   │   ├── HELP.md
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── classes
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── maven-archiver
+│   │       ├── maven-status
+│   │       ├── order-service-0.0.1-SNAPSHOT.jar
+│   │       ├── surefire-reports
+│   │       └── test-classes
+│   ├── payment-service
+│   │   ├── HELP.md
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── classes
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── maven-archiver
+│   │       ├── maven-status
+│   │       ├── payment-service-0.0.1-SNAPSHOT.jar
+│   │       ├── surefire-reports
+│   │       └── test-classes
+│   ├── product-service
+│   │   ├── HELP.md
+│   │   ├── PRODUCT-SERVICE.log
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── classes
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── maven-status
+│   │       ├── surefire-reports
+│   │       └── test-classes
+│   ├── tracking-service
+│   │   ├── HELP.md
+│   │   ├── mvnw
+│   │   ├── mvnw.cmd
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   ├── main
+│   │   │   └── test
+│   │   └── target
+│   │       ├── classes
+│   │       ├── generated-sources
+│   │       ├── generated-test-sources
+│   │       ├── maven-archiver
+│   │       ├── maven-status
+│   │       ├── surefire-reports
+│   │       ├── test-classes
+│   │       └── tracking-service-0.0.1-SNAPSHOT.jar
+│   └── user-service
+│       ├── HELP.md
+│       ├── mvnw
+│       ├── mvnw.cmd
+│       ├── pom.xml
+│       ├── src
+│       │   ├── main
+│       │   └── test
+│       └── target
+│           ├── classes
+│           ├── generated-sources
+│           ├── generated-test-sources
+│           ├── maven-status
+│           ├── surefire-reports
+│           └── test-classes
+├── shared
+│   ├── common-events
+│   │   ├── pom.xml
+│   │   ├── src
+│   │   │   └── main
+│   │   ├── target
+│   │   │   ├── classes
+│   │   │   ├── common-events-1.0.0.jar
+│   │   │   ├── generated-sources
+│   │   │   ├── maven-archiver
+│   │   │   └── maven-status
+│   │   └── tree
+│   ├── common-lib
+│   ├── event-models
+│   ├── grpc-protos
+│   ├── observability
+│   └── security-lib
+├── structure.txt
+├── tests
+│   ├── contract-tests
+│   ├── integration-tests
+│   └── load-tests
+└── tools
+
+175 directories, 65 files

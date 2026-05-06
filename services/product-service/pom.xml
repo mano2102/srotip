@@ -71,19 +71,32 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-</dependency>
+	<dependency>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+	</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			
 		</dependency>
+
+		<!-- DevTools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 		<!-- <dependency>
     <groupId>com.google.cloud</groupId>
     <artifactId>spring-cloud-gcp-starter-secretmanager</artifactId>
 </dependency> -->
+<dependency>
+    <groupId>com.srotip</groupId>
+    <artifactId>common-events</artifactId>
+    <version>1.0.0</version>
+</dependency>
 	</dependencies>
 
 	<build>

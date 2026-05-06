@@ -1,7 +1,7 @@
 package com.srotip.productservice.producer;
 
+import com.srotip.events.ProductCreatedEvent;
 import com.srotip.productservice.constants.KafkaTopics;
-import com.srotip.productservice.event.ProductCreatedEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 

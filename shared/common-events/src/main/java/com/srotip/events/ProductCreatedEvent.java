@@ -1,3 +1,4 @@
+package com.srotip.events;
 public class ProductCreatedEvent {
 
     private Long productId;
