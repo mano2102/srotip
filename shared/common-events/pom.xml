@@ -1,0 +1,15 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.srotip</groupId>
+        <artifactId>srotip</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <groupId>com.srotip</groupId>
+    <artifactId>common-events</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+</project>

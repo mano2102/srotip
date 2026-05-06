@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: notification-service
+
+  datasource:
+    url: jdbc:postgresql://ep-dry-cloud-amswehfh-pooler.c-5.us-east-1.aws.neon.tech/neondb?sslmode=require
+    username: neondb_owner
+    password: npg_I3xmkvl5zyTP
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    consumer:
+      group-id: notification-group
+      auto-offset-reset: earliest
+
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+
+      properties:
+        # Delegate actual deserializers
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+
+        # IMPORTANT: avoid class loading from producer package
+        spring.json.use.type.headers: false
+
+        # Map JSON directly to your local class
+        spring.json.value.default.type: com.srotip.notificationservice.events.UserCreatedEvent
+
+        # Safe package whitelist
+        spring.json.trusted.packages: com.srotip.notificationservice.events
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: manopalaniraja@gmail.com
+    password: gano frkz urrs voml
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 8089
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/
+    register-with-eureka: true
+    fetch-registry: true  

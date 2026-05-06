@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ROOT PROJECT -->
+    <groupId>com.srotip</groupId>
+    <artifactId>srotip</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>SROTIP-Microservices-Monorepo</name>
+
+    <!-- MODULES -->
+    <modules>
+        <module>services/apigateway</module>
+        <module>services/auth-service</module>
+        <module>services/user-service</module>
+        <module>services/order-service</module>
+        <module>services/payment-service</module>
+        <module>services/inventory-service</module>
+        <module>services/delivery-service</module>
+        <module>services/tracking-service</module>
+        <module>services/notification-service</module>
+        <module>services/eureka</module>
+        <module>services/product-service</module>
+        <module>shared/common-events</module>
+    </modules>
+
+    <!-- GLOBAL PROPERTIES -->
+    <properties>
+        <java.version>21</java.version>
+        <spring.boot.version>3.5.14</spring.boot.version>
+        <spring.cloud.version>2025.0.0</spring.cloud.version>
+    </properties>
+
+    <!-- DEPENDENCY MANAGEMENT -->
+    <dependencyManagement>
+        <dependencies>
+        <dependency>
+            <groupId>com.srotip</groupId>
+            <artifactId>common-events</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+            <!-- Spring Boot BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud BOM -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+<!-- GCP depencies -->
+            <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>spring-cloud-gcp-dependencies</artifactId>
+            <version>5.8.0</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+            
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- PLUGIN MANAGEMENT -->
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <!-- Spring Boot Plugin -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                </plugin>
+
+                <!-- Compiler Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
